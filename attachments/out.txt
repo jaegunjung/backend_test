@@ -1,159 +1,27 @@
 
 === Test create, fetch, update ===
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Page not found at /names/alex</title>
-  <meta name="robots" content="NONE,NOARCHIVE">
-  <style type="text/css">
-    html * { padding:0; margin:0; }
-    body * { padding:10px 20px; }
-    body * * { padding:0; }
-    body { font:small sans-serif; background:#eee; }
-    body>div { border-bottom:1px solid #ddd; }
-    h1 { font-weight:normal; margin-bottom:.4em; }
-    h1 span { font-size:60%; color:#666; font-weight:normal; }
-    table { border:none; border-collapse: collapse; width:100%; }
-    td, th { vertical-align:top; padding:2px 3px; }
-    th { width:12em; text-align:right; color:#666; padding-right:.5em; }
-    #info { background:#f6f6f6; }
-    #info ol { margin: 0.5em 4em; }
-    #info ol li { font-family: monospace; }
-    #summary { background: #ffc; }
-    #explanation { background:#eee; border-bottom: 0px none; }
-  </style>
-</head>
-<body>
-  <div id="summary">
-    <h1>Page not found <span>(404)</span></h1>
-    <table class="meta">
-      <tr>
-        <th>Request Method:</th>
-        <td>GET</td>
-      </tr>
-      <tr>
-        <th>Request URL:</th>
-        <td>http://localhost:3000/names/alex</td>
-      </tr>
-      
-    </table>
-  </div>
-  <div id="info">
-    
-      <p>
-      Using the URLconf defined in <code>backend_test.urls</code>,
-      Django tried these URL patterns, in this order:
-      </p>
-      <ol>
-        
-          <li>
-            
-                ^admin/
-                
-            
-          </li>
-        
-      </ol>
-      <p>
-        
-        The current path, <code>names/alex</code>, didn't match any of these.
-      </p>
-    
-  </div>
-
-  <div id="explanation">
-    <p>
-      You're seeing this error because you have <code>DEBUG = True</code> in
-      your Django settings file. Change that to <code>False</code>, and Django
-      will display a standard 404 page.
-    </p>
-  </div>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Page not found at /names/alex</title>
-  <meta name="robots" content="NONE,NOARCHIVE">
-  <style type="text/css">
-    html * { padding:0; margin:0; }
-    body * { padding:10px 20px; }
-    body * * { padding:0; }
-    body { font:small sans-serif; background:#eee; }
-    body>div { border-bottom:1px solid #ddd; }
-    h1 { font-weight:normal; margin-bottom:.4em; }
-    h1 span { font-size:60%; color:#666; font-weight:normal; }
-    table { border:none; border-collapse: collapse; width:100%; }
-    td, th { vertical-align:top; padding:2px 3px; }
-    th { width:12em; text-align:right; color:#666; padding-right:.5em; }
-    #info { background:#f6f6f6; }
-    #info ol { margin: 0.5em 4em; }
-    #info ol li { font-family: monospace; }
-    #summary { background: #ffc; }
-    #explanation { background:#eee; border-bottom: 0px none; }
-  </style>
-</head>
-<body>
-  <div id="summary">
-    <h1>Page not found <span>(404)</span></h1>
-    <table class="meta">
-      <tr>
-        <th>Request Method:</th>
-        <td>GET</td>
-      </tr>
-      <tr>
-        <th>Request URL:</th>
-        <td>http://localhost:3000/names/alex</td>
-      </tr>
-      
-    </table>
-  </div>
-  <div id="info">
-    
-      <p>
-      Using the URLconf defined in <code>backend_test.urls</code>,
-      Django tried these URL patterns, in this order:
-      </p>
-      <ol>
-        
-          <li>
-            
-                ^admin/
-                
-            
-          </li>
-        
-      </ol>
-      <p>
-        
-        The current path, <code>names/alex</code>, didn't match any of these.
-      </p>
-    
-  </div>
-
-  <div id="explanation">
-    <p>
-      You're seeing this error because you have <code>DEBUG = True</code> in
-      your Django settings file. Change that to <code>False</code>, and Django
-      will display a standard 404 page.
-    </p>
-  </div>
-</body>
-</html>
-HTTP status code: 404
+{"name":"alex","url":"http://alex.com"}{"name":"alex","url":"http://alex.org"}HTTP status code: 404
 
 === Test simple annotation ===
+my name is <a href="http://alex.com">alex</a>
+my name is todd
 
 === Test annotation of multiple names ===
+<a href="http://alex.com">alex</a>, <a href="http://bo.com">bo</a>, and <a href="http://casey.com">casey</a> went to the park.
+<a href="http://alex.com">alex</a> alexander alexandria alexbocasey
 
 === Test HTML correctness ===
+<div data-alex="alex"><a href="http://alex.com">alex</a></div>
+<a href="http://foo.com">alex is already linked</a> but <a href="http://alex.com">alex</a> is not
+<div><p>this is paragraph 1 about <a href="http://alex.com">alex</a>.</p><p><a href="http://alex.com">alex</a>'s paragraph number 2.</p><p>and some closing remarks about <a href="http://alex.com">alex</a></p></div>
 
 === Test additional annotations ===
+<div data-alex="alex"><a href="http://alex.com">alex</a></div>
+<div><p>this is paragraph 1 about <a href="http://alex.com">alex</a>.</p><p><a href="http://alex.com">alex</a>'s paragraph number 2.</p><p>and some closing remarks about <a href="http://alex.com">alex</a></p></div>
+<div><ul><li><a href="http://alex.com">alex</a></li><li><a href="http://bo.com">bo</a></li><li>bob</li><li><a href="http://casey.com">casey</a></li></ul></div><div><p>this is paragraph 1 about <a href="http://alex.com">alex</a>.</p><p><a href="http://alex.com">alex</a>'s paragraph number 2.</p><p>and some closing remarks about <a href="http://alex.com">alex</a></p></div>
 
 === Test annotation of complex example ===
+<div class="row"><div class="col-md-6"><h2> <a href="https://sourcegraph.com">Sourcegraph</a> makes programming <strong>delightful.</strong></h2><p>We want to make you even better at what you do best: building software to solve real problems.</p><p><a href="https://sourcegraph.com">Sourcegraph</a> makes it easier to find the information you need: documentation, examples, usage statistics, answers, and more.</p><p>We're just getting started, and we'd love to hear from you. <a href="/contact" ui-sref="help.contact">Get in touch with us.</a></p></div><div class="col-md-4 team"><h3>Team</h3><ul><li><img src="https://secure.gravatar.com/avatar/c728a3085fc16da7c594903ea8e8858f?s=64" class="pull-left"><div class="bio"><strong>Beyang Liu</strong><br><a target="_blank" href="http://github.com/beyang">github.com/beyang</a><a href="mailto:beyang@sourcegraph.com">beyang@sourcegraph.com</a></div></li><li><img src="https://secure.gravatar.com/avatar/d491971c742b8249341e495cf53045ea?s=64" class="pull-left"><div class="bio"><strong>Quinn Slack</strong><br><a target="_blank" href="http://github.com/sqs">github.com/sqs</a><a href="mailto:sqs@sourcegraph.com">sqs@sourcegraph.com</a></div></li><li><img src="https://s3-us-west-2.amazonaws.com/public-dev/milton.png" class="pull-left"><div class="bio"><strong><a href="https://www.google.com/search?q=milton">Milton</a></strong> the Australian Shepherd </div></li></ul><p><a href="/contact" ui-sref="help.contact">Want to join us?</a></p></div></div>
 
 === Tricky case ===
+<div class='<div class="name"><a href="https://name.com">name</a></a>'><a href="https://name.com">name</a></div>
