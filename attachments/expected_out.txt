@@ -26,4 +26,3 @@ my name is todd
 
 === Tricky case ===
 <div class='<div class="name">name</a>'><a href="https://name.com">name</a></div>
-

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/backend_test.iml" filepath="$PROJECT_DIR$/.idea/backend_test.iml" />
+      <module fileurl="file://$USER_HOME$/Cisco_ERDR/git_projects/dr_tools/package/repo/wsgi/.idea/wsgi.iml" filepath="$USER_HOME$/Cisco_ERDR/git_projects/dr_tools/package/repo/wsgi/.idea/wsgi.iml" />
     </modules>
   </component>
 </project>

@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import re
+from bs4 import BeautifulSoup
 
 from models import Names
 from serializers import NamesSerializer
@@ -48,7 +49,7 @@ def register_url_all(request):
     """
     Register url for all
     ---
-       Usage: http://localhost:3000/names/
+       Usage: http://localhost:3000/names
     """
     if request.method == 'GET':
         queryset = Names.objects.all()
@@ -56,11 +57,9 @@ def register_url_all(request):
         return Response(serializer.data)
     elif request.method == 'DELETE':
         instance = Names.objects.all()
-        # print 'instance'
-        # print instance
         if instance:
             instance.delete()
-        return Response([], status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])
@@ -71,41 +70,30 @@ def annotate(request):
        Usage: http://localhost:3000/annotate
     """
     if request.method == 'POST':
-        return_msg = ""
-        # words = request.body.split()
-        # words = re.split(r'(;|,|\s)\s*', request.body)
-        print '-1', request.body
-        # phrases0 = filter(None, re.split(r'(<a href=.+?>.+?<\/a>)', request.body))
-        phrases0 = filter(None, re.split(r'(<a href=.+?>.+?<\/a>|<div class=.+?>)', request.body))
-        for phrase0 in phrases0:
-            print '0', phrase0
-            if not re.match(r'<a href=.+?>.+?<\/a>|<div class=.+?>', phrase0):
-                # phrases = filter(None, re.split(r'(?<=>)(.+?)(?=<)', phrase0))
-                phrases = filter(None, re.split(r'(<.+?>)', phrase0))
-                for phrase in phrases:
-                    print '0.5', phrase
-                    if not re.match(r'<.+?>', phrase):
-                        # words = filter(None, re.split(r'(;|,|\'|\.|\s*)', phrase))
-                        words = filter(None, re.split(r'(;|,|\'|\.|<|>|\s*)', phrase))
-                        print '0.7', words
-                        for i, word in enumerate(words):
-                            print '1', word
-                            # if not re.match(r'[;|,|\'|\.|\s*]', word):
-                            if not re.match(r'[;|,|\'|\.|<|>|\s*]', word):
-                                print '2', word
-                                try:
-                                    queryset = Names.objects.get(name=word)
-                                except Names.DoesNotExist:
-                                    queryset = None
-                                if queryset:
-                                    url = Names.objects.values_list('url', flat=True).get(name=word)
-                                    return_msg = return_msg + '<a href="' + url + '">' + word + '</a>'
-                                else:
-                                    return_msg += word
+        phrases = filter(None, re.split(r'(<a href=.+?>.+?<\/a>)', request.body))
+        return_html = ''
+        for phrase in phrases:
+            if not re.match(r'<a href=.+?>.+?<\/a>', phrase):
+                soup = BeautifulSoup(phrase, 'html.parser')
+                textNodes = soup.findAll(text=True)
+                for textNode in textNodes:
+                    words = filter(None, re.split(r'(;|,|\'|\.|\s*)', textNode))
+                    return_msg = ''
+                    for word in words:
+                        if not re.match(r'[;|,|\'|\.|<|>|\s*]', word):
+                            try:
+                                queryset = Names.objects.get(name=word)
+                            except Names.DoesNotExist:
+                                queryset = None
+                            if queryset:
+                                url = Names.objects.values_list('url', flat=True).get(name=word)
+                                return_msg = return_msg + '<a href="' + url + '">' + word + '</a>'
                             else:
                                 return_msg += word
-                    else:
-                        return_msg += phrase
+                        else:
+                            return_msg += word
+                    textNode.replace_with(return_msg)
+                return_html += soup.encode(formatter=None)
             else:
-                return_msg += phrase0
-        return HttpResponse(return_msg, status=status.HTTP_200_OK)
+                return_html += phrase
+        return HttpResponse(return_html, status=status.HTTP_200_OK)
